@@ -1,50 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Grocery List</title>
+    <title>Grofers Checkout</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
-    <table id="grocery-table">
+    <table id="groceryTable">
         <tr>
             <th>Item</th>
             <th>Price</th>
         </tr>
-        <tr class="item">
-            <td>Apple</td>
-            <td class="prices">1.50</td>
+        <tr>
+            <td>Rice</td>
+            <td data-price="50">50</td>
         </tr>
-        <tr class="item">
-            <td>Orange</td>
-            <td class="prices">2.00</td>
+        <tr>
+            <td>Wheat Flour</td>
+            <td data-price="30">30</td>
         </tr>
-        <tr class="item">
-            <td>Banana</td>
-            <td class="prices">0.75</td>
+        <tr>
+            <td>Pulses</td>
+            <td data-price="40">40</td>
+        </tr>
+        <tr>
+            <td>Oil</td>
+            <td data-price="80">80</td>
         </tr>
     </table>
 
     <script>
-        // Function to calculate and display the total price
         function calculateTotalPrice() {
-            const pricesElements = document.querySelectorAll('.prices'); // Get all price elements
+            const table = document.getElementById('groceryTable');
+            const priceCells = table.querySelectorAll('td[data-price]');
             let totalPrice = 0;
 
-            pricesElements.forEach(priceElement => {
-                const price = parseFloat(priceElement.textContent);
-                totalPrice += price;
+            priceCells.forEach(cell => {
+                totalPrice += parseInt(cell.dataset.price);
             });
 
-            // Create a new row for total price
-            const table = document.getElementById('grocery-table');
-            const newRow = document.createElement('tr');
-            newRow.innerHTML = `
-                <td>Total Price</td>
-                <td>${totalPrice.toFixed(2)}</td>
-            `;
-            table.appendChild(newRow);
+            const totalRow = document.createElement('tr');
+            const totalCell = document.createElement('td');
+            totalCell.textContent = 'Total Price: ' + totalPrice;
+            totalCell.colSpan = 2;
+            totalRow.appendChild(totalCell);
+
+            table.appendChild(totalRow);
         }
 
-        // Call the function to calculate and display the total price
         calculateTotalPrice();
     </script>
 </body>
