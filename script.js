@@ -1,20 +1,15 @@
 //your code here
-const table = document.querySelector("table");
-const lastRow = document.createElement("tr");
-// const prices = document.querySelectorAll("[data-ns-test=price]");
-let allRows = document.getElementsByTagName("tr");
-let sum = 0;
-for (let i = 0; i < allRows.length; i++) {
-  let tds = allRows[i].getElementsByTagName("td");
-  sum += parseInt(tds[2].textContent);
+let tableEl = document.getElementById('myTable');
+let priceArr = Array.from(document.querySelectorAll("td[data-ns-test]"));
+// console.log(priceArr);
+let totalPrice = 0;
+for (const priceOfEachItem of priceArr) {
+  totalPrice += Number(priceOfEachItem.textContent);
 }
 
-// for (let i = 0; i < prices.length; i++) {
-//   sum += parseInt(prices[i].textContent);
-// }
-const child = document.createElement("td");
-child.setAttribute("data-ns-test", "grandTotal");
+let totalRow = document.createElement('tr');
+let newcell = totalRow.insertCell(0);
+newcell.textContent = totalPrice
+totalRow.setAttribute('data-ns-test', 'grandTotal')
 
-child.textContent = sum;
-lastRow.appendChild(child);
-table.appendChild(lastRow);
+tableEl.insertAdjacentElement('beforeend', totalRow);
