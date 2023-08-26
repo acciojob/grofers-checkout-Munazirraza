@@ -1,15 +1,25 @@
-//your code here
-let tableEl = document.getElementById('myTable');
-let priceArr = Array.from(document.querySelectorAll("td[data-ns-test]"));
-// console.log(priceArr);
-let totalPrice = 0;
-for (const priceOfEachItem of priceArr) {
-  totalPrice += Number(priceOfEachItem.textContent);
-}
+const getSumBtn = document.createElement("button");
+getSumBtn.append("Get Total Price");
+document.body.appendChild(getSumBtn);
+let table = document.getElementById("table");
 
-let totalRow = document.createElement('tr');
-let newcell = totalRow.insertCell(0);
-newcell.textContent = totalPrice
-totalRow.setAttribute('data-ns-test', 'grandTotal')
 
-tableEl.insertAdjacentElement('beforeend', totalRow);
+const getSum = () => {
+//Add your code here
+  let arr = Array.from(document.querySelectorAll(".price"));
+	let sum = 0;
+	arr.forEach((item)=> {
+		 sum += parseInt(item.innerText);
+	});
+	let row =document.createElement("tr");
+	row.setAttribute('id',"ans");
+	let cell1 = document.createElement("td");
+	cell1.innerText = "Total is: ";
+	let cell2 = document.createElement("td");
+	cell2.innerText = sum;
+	row.appendChild(cell1)
+	row.appendChild(cell2);
+	table.appendChild(row);
+};
+
+getSumBtn.addEventListener("click", getSum);
